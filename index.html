@@ -5,9 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Video Downloader – Download TikTok, YouTube & Facebook Videos</title>
+<title>Random Name Generator – Generate Random Names Instantly</title>
 
-<meta name="description" content="Free online video downloader. Download videos from TikTok, YouTube and Facebook instantly. Paste your link and download videos online.">
+<meta name="description" content="Free random name generator. Generate random names instantly for games, usernames, characters, and more.">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -20,140 +20,72 @@ box-sizing:border-box;
 }
 
 body{
-
 font-family:'Inter',sans-serif;
 background:linear-gradient(135deg,#0f172a,#1e293b);
 color:white;
-min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
+min-height:100vh;
 padding:20px;
-
 }
 
 .container{
 
-max-width:750px;
+max-width:600px;
 width:100%;
 background:#020617;
-padding:45px;
-border-radius:18px;
-box-shadow:0 15px 40px rgba(0,0,0,0.6);
+padding:40px;
+border-radius:16px;
 text-align:center;
-
-}
-
-.logo{
-
-font-size:26px;
-font-weight:700;
-margin-bottom:10px;
+box-shadow:0 15px 40px rgba(0,0,0,0.5);
 
 }
 
 h1{
-
-font-size:34px;
+font-size:30px;
 margin-bottom:10px;
-
 }
 
 p{
-
 color:#94a3b8;
-margin-bottom:30px;
-
+margin-bottom:25px;
 }
 
-.input-area{
+.name{
 
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-
-}
-
-input{
-
-flex:1;
-padding:16px;
-border-radius:10px;
-border:none;
-font-size:16px;
+font-size:28px;
+font-weight:700;
+margin:20px 0;
+color:#fbbf24;
 
 }
 
 button{
 
-padding:16px 25px;
+padding:15px 25px;
 border:none;
 border-radius:10px;
 background:#f59e0b;
 font-weight:600;
 cursor:pointer;
-transition:0.3s;
 
 }
 
 button:hover{
-
 background:#fbbf24;
-
 }
 
-.result{
+.copy{
 
-margin-top:35px;
-font-size:15px;
-
-}
-
-.download-btn{
-
-display:inline-block;
-margin-top:20px;
-padding:14px 22px;
+margin-top:10px;
 background:#22c55e;
-border-radius:8px;
-text-decoration:none;
-color:white;
-font-weight:600;
-
-}
-
-.platforms{
-
-margin-top:25px;
-font-size:14px;
-color:#94a3b8;
-
-}
-
-.steps{
-
-margin-top:40px;
-text-align:left;
-
-}
-
-.steps h2{
-
-margin-bottom:15px;
-font-size:20px;
-
-}
-
-.steps li{
-
-margin-bottom:8px;
-color:#cbd5f5;
 
 }
 
 footer{
 
-margin-top:35px;
+margin-top:25px;
 font-size:13px;
 color:#64748b;
 
@@ -167,83 +99,59 @@ color:#64748b;
 
 <div class="container">
 
-<div class="logo">Video Downloader</div>
+<h1>Random Name Generator</h1>
 
-<h1>Download Videos Online</h1>
+<p>Generate random names for usernames, games, characters and more.</p>
 
-<p>Paste a TikTok, YouTube or Facebook video link and download instantly.</p>
+<div class="name" id="name">Click Generate</div>
 
-<div class="input-area">
+<button onclick="generateName()">Generate Name</button>
 
-<input id="videoURL" placeholder="Paste video link here">
+<br>
 
-<button onclick="downloadVideo()">Download</button>
-
-</div>
-
-<div class="result" id="result"></div>
-
-<div class="platforms">
-
-Supported platforms: TikTok • YouTube • Facebook
-
-</div>
-
-<div class="steps">
-
-<h2>How to Download Video</h2>
-
-<ol>
-
-<li>Copy the video link from TikTok, YouTube or Facebook.</li>
-
-<li>Paste the link in the box above.</li>
-
-<li>Click the Download button.</li>
-
-<li>You will be redirected to download the video.</li>
-
-</ol>
-
-</div>
+<button class="copy" onclick="copyName()">Copy Name</button>
 
 <footer>
-
-Free Online Video Downloader Tool
-
+Free Online Name Generator
 </footer>
 
 </div>
 
 <script>
 
-function detectPlatform(url){
+const first=[
 
-if(url.includes("tiktok")) return "https://snapsave.app/?url=";
+"Shadow","Storm","Iron","Dark","Silent","Red","Ghost","Night","Wolf","Fire",
+"Steel","Thunder","Silver","Golden","Rapid","Blaze","Frost","Nova","Solar","Cyber"
 
-if(url.includes("youtube") || url.includes("youtu.be")) return "https://yt1s.com/en?q=";
+];
 
-if(url.includes("facebook") || url.includes("fb.watch")) return "https://snapsave.app/?url=";
+const second=[
 
-return "https://snapsave.app/?url=";
+"Rider","Hunter","Warrior","Knight","Dragon","Falcon","Titan","Phantom","Blade","Striker",
+"Sniper","Vortex","Storm","Raider","Legend","Ninja","Rogue","Samurai","Wizard","Champion"
+
+];
+
+function generateName(){
+
+let f=first[Math.floor(Math.random()*first.length)];
+
+let s=second[Math.floor(Math.random()*second.length)];
+
+let name=f+s+Math.floor(Math.random()*100);
+
+document.getElementById("name").innerText=name;
 
 }
 
-function downloadVideo(){
+function copyName(){
 
-let url=document.getElementById("videoURL").value;
+let text=document.getElementById("name").innerText;
 
-if(url===""){
+navigator.clipboard.writeText(text);
 
-alert("Please paste a video link.");
-
-return;
-
-}
-
-let service=detectPlatform(url);
-
-window.open(service + encodeURIComponent(url),"_blank");
+alert("Name copied!");
 
 }
 
