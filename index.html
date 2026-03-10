@@ -5,9 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Random Name Generator – Generate Random Names Instantly</title>
+<title>QR Code Generator – Create QR Codes Instantly</title>
 
-<meta name="description" content="Free random name generator. Generate random names instantly for games, usernames, characters, and more.">
+<meta name="description" content="Free QR Code Generator. Create QR codes instantly for links, text, or contact information and download them easily.">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -20,6 +20,7 @@ box-sizing:border-box;
 }
 
 body{
+
 font-family:'Inter',sans-serif;
 background:linear-gradient(135deg,#0f172a,#1e293b);
 color:white;
@@ -28,6 +29,7 @@ align-items:center;
 justify-content:center;
 min-height:100vh;
 padding:20px;
+
 }
 
 .container{
@@ -52,17 +54,19 @@ color:#94a3b8;
 margin-bottom:25px;
 }
 
-.name{
+input{
 
-font-size:28px;
-font-weight:700;
-margin:20px 0;
-color:#fbbf24;
+width:100%;
+padding:15px;
+border-radius:10px;
+border:none;
+font-size:16px;
 
 }
 
 button{
 
+margin-top:15px;
 padding:15px 25px;
 border:none;
 border-radius:10px;
@@ -76,9 +80,15 @@ button:hover{
 background:#fbbf24;
 }
 
-.copy{
+.qr{
 
-margin-top:10px;
+margin-top:25px;
+
+}
+
+.download{
+
+margin-top:15px;
 background:#22c55e;
 
 }
@@ -99,59 +109,63 @@ color:#64748b;
 
 <div class="container">
 
-<h1>Random Name Generator</h1>
+<h1>QR Code Generator</h1>
 
-<p>Generate random names for usernames, games, characters and more.</p>
+<p>Create QR codes for links, text or anything instantly.</p>
 
-<div class="name" id="name">Click Generate</div>
+<input id="text" placeholder="Enter URL or text">
 
-<button onclick="generateName()">Generate Name</button>
+<button onclick="generateQR()">Generate QR Code</button>
 
-<br>
+<div class="qr" id="qr"></div>
 
-<button class="copy" onclick="copyName()">Copy Name</button>
+<button class="download" onclick="downloadQR()">Download QR</button>
 
 <footer>
-Free Online Name Generator
+Free QR Code Generator Tool
 </footer>
 
 </div>
 
 <script>
 
-const first=[
+function generateQR(){
 
-"Shadow","Storm","Iron","Dark","Silent","Red","Ghost","Night","Wolf","Fire",
-"Steel","Thunder","Silver","Golden","Rapid","Blaze","Frost","Nova","Solar","Cyber"
+let text=document.getElementById("text").value;
 
-];
+if(text===""){
 
-const second=[
+alert("Enter text or URL");
 
-"Rider","Hunter","Warrior","Knight","Dragon","Falcon","Titan","Phantom","Blade","Striker",
-"Sniper","Vortex","Storm","Raider","Legend","Ninja","Rogue","Samurai","Wizard","Champion"
-
-];
-
-function generateName(){
-
-let f=first[Math.floor(Math.random()*first.length)];
-
-let s=second[Math.floor(Math.random()*second.length)];
-
-let name=f+s+Math.floor(Math.random()*100);
-
-document.getElementById("name").innerText=name;
+return;
 
 }
 
-function copyName(){
+let qr="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="+encodeURIComponent(text);
 
-let text=document.getElementById("name").innerText;
+document.getElementById("qr").innerHTML="<img id='qrimg' src='"+qr+"'>";
 
-navigator.clipboard.writeText(text);
+}
 
-alert("Name copied!");
+function downloadQR(){
+
+let img=document.getElementById("qrimg");
+
+if(!img){
+
+alert("Generate QR first");
+
+return;
+
+}
+
+let link=document.createElement("a");
+
+link.href=img.src;
+
+link.download="qr-code.png";
+
+link.click();
 
 }
 
