@@ -3,13 +3,29 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>QR Code Generator – Create QR Codes Instantly</title>
+<title>Free QR Code Generator Online – Create QR Codes Instantly</title>
 
-<meta name="description" content="Free QR Code Generator. Create QR codes instantly for links, text, or contact information and download them easily.">
+<meta name="description" content="Generate QR codes instantly for URLs, text, contacts, WiFi and more. Free online QR code generator with download option.">
+
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://example.com/qr-code-generator">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Free QR Code Generator">
+<meta property="og:description" content="Create QR codes instantly and download them in seconds.">
+<meta property="og:type" content="website">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free QR Code Generator">
+<meta name="twitter:description" content="Generate QR codes instantly online.">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 
@@ -21,81 +37,95 @@ box-sizing:border-box;
 
 body{
 
-font-family:'Inter',sans-serif;
+font-family:Inter, sans-serif;
 background:linear-gradient(135deg,#0f172a,#1e293b);
 color:white;
+min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-min-height:100vh;
 padding:20px;
 
 }
 
 .container{
 
-max-width:600px;
+max-width:700px;
 width:100%;
 background:#020617;
 padding:40px;
-border-radius:16px;
+border-radius:18px;
+box-shadow:0 20px 60px rgba(0,0,0,0.5);
 text-align:center;
-box-shadow:0 15px 40px rgba(0,0,0,0.5);
 
 }
 
 h1{
-font-size:30px;
+
+font-size:32px;
 margin-bottom:10px;
+
 }
 
 p{
+
 color:#94a3b8;
 margin-bottom:25px;
+
 }
 
 input{
 
 width:100%;
-padding:15px;
+padding:16px;
 border-radius:10px;
 border:none;
 font-size:16px;
+margin-bottom:15px;
 
 }
 
 button{
 
-margin-top:15px;
-padding:15px 25px;
+padding:14px 24px;
 border:none;
 border-radius:10px;
-background:#f59e0b;
 font-weight:600;
 cursor:pointer;
+margin:5px;
 
 }
 
-button:hover{
-background:#fbbf24;
-}
+.generate{
 
-.qr{
-
-margin-top:25px;
+background:#f59e0b;
+color:black;
 
 }
 
 .download{
 
-margin-top:15px;
 background:#22c55e;
+color:white;
+
+}
+
+.copy{
+
+background:#3b82f6;
+color:white;
+
+}
+
+#qrcode{
+
+margin-top:25px;
 
 }
 
 footer{
 
-margin-top:25px;
+margin-top:30px;
 font-size:13px;
 color:#64748b;
 
@@ -111,29 +141,39 @@ color:#64748b;
 
 <h1>QR Code Generator</h1>
 
-<p>Create QR codes for links, text or anything instantly.</p>
+<p>Create QR codes instantly for links, text, or any information.</p>
 
 <input id="text" placeholder="Enter URL or text">
 
-<button onclick="generateQR()">Generate QR Code</button>
+<div>
 
-<div class="qr" id="qr"></div>
+<button class="generate" onclick="generateQR()">Generate QR</button>
 
-<button class="download" onclick="downloadQR()">Download QR</button>
+<button class="download" onclick="downloadQR()">Download PNG</button>
+
+<button class="copy" onclick="copyText()">Copy Text</button>
+
+</div>
+
+<div id="qrcode"></div>
 
 <footer>
-Free QR Code Generator Tool
+
+Free Online QR Code Generator Tool
+
 </footer>
 
 </div>
 
 <script>
 
+let qr;
+
 function generateQR(){
 
 let text=document.getElementById("text").value;
 
-if(text===""){
+if(!text){
 
 alert("Enter text or URL");
 
@@ -141,15 +181,21 @@ return;
 
 }
 
-let qr="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="+encodeURIComponent(text);
+document.getElementById("qrcode").innerHTML="";
 
-document.getElementById("qr").innerHTML="<img id='qrimg' src='"+qr+"'>";
+qr=new QRCode(document.getElementById("qrcode"),{
+
+text:text,
+width:250,
+height:250
+
+});
 
 }
 
 function downloadQR(){
 
-let img=document.getElementById("qrimg");
+let img=document.querySelector("#qrcode img");
 
 if(!img){
 
@@ -163,9 +209,19 @@ let link=document.createElement("a");
 
 link.href=img.src;
 
-link.download="qr-code.png";
+link.download="qrcode.png";
 
 link.click();
+
+}
+
+function copyText(){
+
+let text=document.getElementById("text").value;
+
+navigator.clipboard.writeText(text);
+
+alert("Copied!");
 
 }
 
