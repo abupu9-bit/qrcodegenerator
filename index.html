@@ -7,7 +7,7 @@
 
 <title>Video Downloader – Download TikTok, YouTube & Facebook Videos</title>
 
-<meta name="description" content="Free online video downloader. Download videos from TikTok, YouTube and Facebook instantly. Just paste the link and download.">
+<meta name="description" content="Free online video downloader. Download videos from TikTok, YouTube and Facebook instantly. Paste your link and download videos online.">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -21,55 +21,63 @@ box-sizing:border-box;
 
 body{
 
-font-family: 'Inter', sans-serif;
-background: linear-gradient(135deg,#0f172a,#1e293b);
+font-family:'Inter',sans-serif;
+background:linear-gradient(135deg,#0f172a,#1e293b);
 color:white;
+min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-min-height:100vh;
 padding:20px;
 
 }
 
 .container{
 
-max-width:700px;
+max-width:750px;
 width:100%;
 background:#020617;
-padding:40px;
-border-radius:16px;
-box-shadow:0 10px 40px rgba(0,0,0,0.5);
+padding:45px;
+border-radius:18px;
+box-shadow:0 15px 40px rgba(0,0,0,0.6);
 text-align:center;
+
+}
+
+.logo{
+
+font-size:26px;
+font-weight:700;
+margin-bottom:10px;
 
 }
 
 h1{
 
-font-size:32px;
+font-size:34px;
 margin-bottom:10px;
 
 }
 
 p{
 
-color:#cbd5f5;
+color:#94a3b8;
 margin-bottom:30px;
 
 }
 
-.input-box{
+.input-area{
 
 display:flex;
 gap:10px;
-margin-bottom:20px;
+flex-wrap:wrap;
 
 }
 
 input{
 
 flex:1;
-padding:15px;
+padding:16px;
 border-radius:10px;
 border:none;
 font-size:16px;
@@ -78,11 +86,11 @@ font-size:16px;
 
 button{
 
-padding:15px 25px;
+padding:16px 25px;
 border:none;
 border-radius:10px;
 background:#f59e0b;
-font-weight:bold;
+font-weight:600;
 cursor:pointer;
 transition:0.3s;
 
@@ -96,20 +104,21 @@ background:#fbbf24;
 
 .result{
 
-margin-top:30px;
+margin-top:35px;
+font-size:15px;
 
 }
 
 .download-btn{
 
-margin-top:15px;
 display:inline-block;
-padding:12px 20px;
+margin-top:20px;
+padding:14px 22px;
 background:#22c55e;
 border-radius:8px;
-color:white;
 text-decoration:none;
-font-weight:bold;
+color:white;
+font-weight:600;
 
 }
 
@@ -121,9 +130,30 @@ color:#94a3b8;
 
 }
 
-footer{
+.steps{
 
 margin-top:40px;
+text-align:left;
+
+}
+
+.steps h2{
+
+margin-bottom:15px;
+font-size:20px;
+
+}
+
+.steps li{
+
+margin-bottom:8px;
+color:#cbd5f5;
+
+}
+
+footer{
+
+margin-top:35px;
 font-size:13px;
 color:#64748b;
 
@@ -137,11 +167,13 @@ color:#64748b;
 
 <div class="container">
 
-<h1>Video Downloader</h1>
+<div class="logo">Video Downloader</div>
 
-<p>Download videos from TikTok, YouTube and Facebook. Paste your link below.</p>
+<h1>Download Videos Online</h1>
 
-<div class="input-box">
+<p>Paste a TikTok, YouTube or Facebook video link and download instantly.</p>
+
+<div class="input-area">
 
 <input id="videoURL" placeholder="Paste video link here">
 
@@ -152,54 +184,66 @@ color:#64748b;
 <div class="result" id="result"></div>
 
 <div class="platforms">
+
 Supported platforms: TikTok • YouTube • Facebook
+
+</div>
+
+<div class="steps">
+
+<h2>How to Download Video</h2>
+
+<ol>
+
+<li>Copy the video link from TikTok, YouTube or Facebook.</li>
+
+<li>Paste the link in the box above.</li>
+
+<li>Click the Download button.</li>
+
+<li>You will be redirected to download the video.</li>
+
+</ol>
+
 </div>
 
 <footer>
-Free Online Tool
+
+Free Online Video Downloader Tool
+
 </footer>
 
 </div>
 
 <script>
 
+function detectPlatform(url){
+
+if(url.includes("tiktok")) return "https://snapsave.app/?url=";
+
+if(url.includes("youtube") || url.includes("youtu.be")) return "https://yt1s.com/en?q=";
+
+if(url.includes("facebook") || url.includes("fb.watch")) return "https://snapsave.app/?url=";
+
+return "https://snapsave.app/?url=";
+
+}
+
 function downloadVideo(){
 
 let url=document.getElementById("videoURL").value;
 
-if(url==""){
+if(url===""){
 
-document.getElementById("result").innerHTML=
-"<p>Please paste a video link.</p>";
+alert("Please paste a video link.");
 
 return;
 
 }
 
-let api="https://api.example.com/download?url="+encodeURIComponent(url);
+let service=detectPlatform(url);
 
-document.getElementById("result").innerHTML=
-"<p>Processing video...</p>";
-
-fetch(api)
-
-.then(res=>res.json())
-
-.then(data=>{
-
-document.getElementById("result").innerHTML=
-
-`<p>Video Ready</p>
-<a class="download-btn" href="${data.download}" target="_blank">Download Video</a>`;
-
-})
-
-.catch(()=>{
-
-document.getElementById("result").innerHTML=
-"<p>Unable to process video.</p>";
-
-});
+window.open(service + encodeURIComponent(url),"_blank");
 
 }
 
