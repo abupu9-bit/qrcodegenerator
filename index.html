@@ -24,7 +24,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-<!-- MGID Loader -->
+<!-- MGID -->
 <script src="https://jsc.mgid.com/site/1084924.js" async></script>
 
 <style>
@@ -84,20 +84,9 @@ cursor:pointer;
 margin:5px;
 }
 
-.generate{
-background:#f59e0b;
-color:black;
-}
-
-.download{
-background:#22c55e;
-color:white;
-}
-
-.copy{
-background:#3b82f6;
-color:white;
-}
+.generate{background:#f59e0b;color:black;}
+.download{background:#22c55e;color:white;}
+.copy{background:#3b82f6;color:white;}
 
 #qrcode{
 margin-top:25px;
@@ -109,10 +98,8 @@ margin-top:25px;
 
 .share button{
 padding:12px 20px;
-border:none;
 border-radius:8px;
 font-weight:600;
-cursor:pointer;
 margin:5px;
 }
 
@@ -136,7 +123,7 @@ color:#64748b;
 
 <h1>QR Code Generator</h1>
 
-<!-- MGID TOP WIDGET -->
+<!-- MGID TOP -->
 <div data-type="_mgwidget" data-widget-id="1973982"></div>
 
 <p>Create QR codes instantly for links, text, or any information.</p>
@@ -163,7 +150,7 @@ color:#64748b;
 
 </div>
 
-<!-- MGID BOTTOM WIDGET -->
+<!-- MGID BOTTOM -->
 <div style="margin-top:40px;">
 <div data-type="_mgwidget" data-widget-id="1973981"></div>
 </div>
@@ -176,19 +163,19 @@ Free Online QR Code Generator Tool
 
 <script>
 
-/* LOAD MGID WIDGET AFTER PAGE READY */
+/* MGID LOAD */
 
 window.addEventListener("load",function(){
 
 if(window._mgq){
-
 window._mgq.push(["_mgc.load"]);
-
 }
 
 });
 
 let qr;
+
+/* GENERATE QR */
 
 function generateQR(){
 
@@ -209,6 +196,8 @@ height:250
 
 }
 
+/* DOWNLOAD QR */
+
 function downloadQR(){
 
 let canvas=document.querySelector("#qrcode canvas");
@@ -219,9 +208,7 @@ if(canvas){
 let link=document.createElement("a");
 link.href=canvas.toDataURL("image/png");
 link.download="qrcode.png";
-document.body.appendChild(link);
 link.click();
-document.body.removeChild(link);
 
 }
 
@@ -230,14 +217,16 @@ else if(img){
 fetch(img.src)
 .then(res=>res.blob())
 .then(blob=>{
+
 let url=URL.createObjectURL(blob);
 let link=document.createElement("a");
+
 link.href=url;
 link.download="qrcode.png";
-document.body.appendChild(link);
 link.click();
-document.body.removeChild(link);
+
 URL.revokeObjectURL(url);
+
 });
 
 }
@@ -248,6 +237,8 @@ alert("Generate QR first");
 
 }
 
+/* COPY TEXT */
+
 function copyText(){
 
 let text=document.getElementById("text").value;
@@ -257,45 +248,45 @@ alert("Enter text first");
 return;
 }
 
-if(navigator.clipboard){
-
 navigator.clipboard.writeText(text).then(()=>{
 alert("Copied!");
 });
 
-}else{
-
-let temp=document.createElement("textarea");
-temp.value=text;
-document.body.appendChild(temp);
-temp.select();
-document.execCommand("copy");
-document.body.removeChild(temp);
-alert("Copied!");
-
 }
 
-}
+/* SHARE FACEBOOK */
 
 function shareFB(){
 
 let url=encodeURIComponent(window.location.href);
-window.open("https://www.facebook.com/sharer/sharer.php?u="+url,"_blank");
+
+window.open(
+"https://www.facebook.com/sharer/sharer.php?u="+url,
+"_blank"
+);
 
 }
+
+/* SHARE X */
 
 function shareX(){
 
 let url=encodeURIComponent(window.location.href);
-let text=encodeURIComponent("Free QR Code Generator Tool");
+let text=encodeURIComponent("Free QR Code Generator Tool #QRCode #FreeTool");
 
-window.open("https:/twitter/intent/tweet?text="+text+"&url="+url,"_blank");
+window.open(
+"https://twitter.com/intent/tweet?text="+text+"&url="+url,
+"_blank"
+);
 
 }
+
+/* SHARE INSTAGRAM */
 
 function shareIG(){
 
 navigator.clipboard.writeText(window.location.href);
+
 alert("Link copied! Paste it in Instagram.");
 
 }
