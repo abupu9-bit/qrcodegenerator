@@ -6,12 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>QR Code Generator – Free Online QR Code Maker</title>
-<script src="https://jsc.mgid.com/site/1084924.js" async></script>
+
 <meta name="description" content="Free QR Code Generator to create QR codes instantly. Enter text or a URL and download your QR code as PNG. Simple, fast, and mobile friendly.">
 
 <link rel="canonical" href="https://qrcodemaker.web.id/">
 <meta name="robots" content="index,follow">
-
 
 <meta property="og:title" content="Free QR Code Generator">
 <meta property="og:description" content="Create QR codes instantly and download them in seconds.">
@@ -24,6 +23,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<!-- MGID Loader -->
+<script src="https://jsc.mgid.com/site/1084924.js" async></script>
 
 <style>
 
@@ -101,8 +103,6 @@ color:white;
 margin-top:25px;
 }
 
-/* SHARE BUTTONS */
-
 .share{
 margin-top:25px;
 }
@@ -116,20 +116,9 @@ cursor:pointer;
 margin:5px;
 }
 
-.fb{
-background:#1877f2;
-color:white;
-}
-
-.x{
-background:#000;
-color:white;
-}
-
-.ig{
-background:#e1306c;
-color:white;
-}
+.fb{background:#1877f2;color:white;}
+.x{background:#000;color:white;}
+.ig{background:#e1306c;color:white;}
 
 footer{
 margin-top:30px;
@@ -146,13 +135,10 @@ color:#64748b;
 <div class="container">
 
 <h1>QR Code Generator</h1>
+
+<!-- MGID TOP WIDGET -->
 <div data-type="_mgwidget" data-widget-id="1973982"></div>
-<script>
-(function(w,q){
-w[q]=w[q]||[];
-w[q].push(["_mgc.load"])
-})(window,"_mgq");
-</script>
+
 <p>Create QR codes instantly for links, text, or any information.</p>
 
 <input id="text" placeholder="Enter URL or text">
@@ -176,15 +162,12 @@ w[q].push(["_mgc.load"])
 <button class="ig" onclick="shareIG()">Instagram</button>
 
 </div>
+
+<!-- MGID BOTTOM WIDGET -->
 <div style="margin-top:40px;">
 <div data-type="_mgwidget" data-widget-id="1973981"></div>
-<script>
-(function(w,q){
-w[q]=w[q]||[];
-w[q].push(["_mgc.load"])
-})(window,"_mgq");
-</script>
 </div>
+
 <footer>
 Free Online QR Code Generator Tool
 </footer>
@@ -192,6 +175,18 @@ Free Online QR Code Generator Tool
 </div>
 
 <script>
+
+/* LOAD MGID WIDGET AFTER PAGE READY */
+
+window.addEventListener("load",function(){
+
+if(window._mgq){
+
+window._mgq.push(["_mgc.load"]);
+
+}
+
+});
 
 let qr;
 
@@ -282,8 +277,6 @@ alert("Copied!");
 
 }
 
-/* SHARE FUNCTIONS */
-
 function shareFB(){
 
 let url=encodeURIComponent(window.location.href);
@@ -296,7 +289,7 @@ function shareX(){
 let url=encodeURIComponent(window.location.href);
 let text=encodeURIComponent("Free QR Code Generator Tool");
 
-window.open("https://twitter.com/intent/tweet?text="+text+"&url="+url,"_blank");
+window.open("https:/x.com/intent/tweet?text="+text+"&url="+url,"_blank");
 
 }
 
