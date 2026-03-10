@@ -90,6 +90,16 @@ margin:5px;
 
 #qrcode{
 margin-top:25px;
+background:#ffffff;
+padding:20px;
+border-radius:12px;
+display:inline-block;
+}
+
+#qrcode canvas,
+#qrcode img{
+background:#ffffff;
+padding:10px;
 }
 
 .share{
@@ -190,8 +200,11 @@ document.getElementById("qrcode").innerHTML="";
 
 qr=new QRCode(document.getElementById("qrcode"),{
 text:text,
-width:250,
-height:250
+width:280,
+height:280,
+colorDark:"#000000",
+colorLight:"#ffffff",
+correctLevel:QRCode.CorrectLevel.H
 });
 
 }
